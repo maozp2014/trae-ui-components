@@ -120,6 +120,66 @@ const Table = ({ data = [], columns = [], onRowClick, theme = {} }) => {
   // 合并主题
   const mergedTheme = { ...defaultTheme, ...theme };
 
+  // 排序状态：{ field: 排序字段, order: 'asc' | 'desc' | undefined }
+  const [sortState, setSortState] = useState({ field: undefined, order: undefined });
+
+  // 处理表头点击事件，切换排序方向
+  const handleSort = (field) => {
+    if (sortState.field === field) {
+      // 如果点击的是当前排序字段，则切换排序方向
+      if (sortState.order === 'asc') {
+        setSortState({ field, order: 'desc' });
+      } else if (sortState.order === 'desc') {
+        setSortState({ field: undefined, order: undefined });
+      } else {
+        setSortState({ field, order: 'asc' });
+      }
+    } else {
+      // 如果点击的是新的排序字段，则设置为升序
+      setSortState({ field, order: 'asc' });
+    }
+  };
+
+  // 排序函数
+  const sortData = (data) => {
+    if (!sortState.field || !sortState.order) {
+      return data;
+    }
+
+    const sortedData = [...data];
+    sortedData.sort((a, b) => {
+      let valueA = a[sortState.field];
+      let valueB = b[sortState.field];
+
+      // 处理不同类型的数据
+      if (typeof valueA === 'string' && typeof valueB === 'string') {
+        // 尝试解析数字字符串进行数字排序
+        const numA = Number(valueA.replace(/,/g, ''));
+        const numB = Number(valueB.replace(/,/g, ''));
+        if (!isNaN(numA) && !isNaN(numB)) {
+          return sortState.order === 'asc' ? numA - numB : numB - numA;
+        }
+        // 日期字符串排序
+        if (valueA.includes('年') || valueA.includes('-')) {
+          // 简单的日期字符串比较，假设格式一致
+          return sortState.order === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+        }
+        // 普通字符串排序
+        return sortState.order === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+      } else if (typeof valueA === 'number' && typeof valueB === 'number') {
+        return sortState.order === 'asc' ? valueA - valueB : valueB - valueA;
+      } else {
+        // 混合类型比较
+        return sortState.order === 'asc' ? String(valueA).localeCompare(String(valueB)) : String(valueB).localeCompare(String(valueA));
+      }
+    });
+
+    return sortedData;
+  };
+
+  // 应用排序
+  const sortedData = sortData(data);
+
   // 如果没有数据，显示空状态
   if (!data || data.length === 0) {
     return (
@@ -136,18 +196,30 @@ const Table = ({ data = [], columns = [], onRowClick, theme = {} }) => {
       <TableElement theme={mergedTheme}>
         <thead>
           <tr>
-            {columns.map((column, index) => (
-              <TableHeaderCell key={index} theme={mergedTheme}>
-                {column.title}
-              </TableHeaderCell>
-            ))}
+            {columns.map((column, index) => {
+              const isSorted = sortState.field === column.dataIndex;
+              const sortIcon = isSorted ? 
+                (sortState.order === 'asc' ? ' ↑' : ' ↓') : 
+                ' ↕';
+              
+              return (
+                <TableHeaderCell 
+                  key={index} 
+                  theme={mergedTheme}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => handleSort(column.dataIndex)}
+                >
+                  {column.title}{sortIcon}
+                </TableHeaderCell>
+              );
+            })}
             <TableHeaderCell key="action-header" theme={mergedTheme} align="right">
               操作
             </TableHeaderCell>
           </tr>
         </thead>
         <tbody>
-          {data.map((row, rowIndex) => {
+          {sortedData.map((row, rowIndex) => {
             // 阻止无效行的点击事件冒泡
             const handleRowClick = row.status === '无效' ? (e) => e.stopPropagation() : () => onRowClick && onRowClick(row);
             
