@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import { Button, Card, Input, Table } from './components';
+import { Button, Card, Input, Table, Menu } from './components';
 
 function App() {
   const [name, setName] = useState('');
@@ -154,6 +154,150 @@ function App() {
                 onRowClick={handleRowClick}
               />
             </div>
+          </div>
+        </section>
+
+        <section className="components-section">
+          <h2>Menu 组件</h2>
+          <p>列排菜单组件，支持多级子菜单、红框标记和红色文本</p>
+          <div style={{ marginTop: '16px' }}>
+            <Card padded elevated>
+              <h3>导航菜单示例</h3>
+              <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+                <Menu 
+                  items={[
+                    {
+                      label: '信息中心',
+                      icon: '⚙',
+                      isSelected: false,
+                      children: [
+                        {
+                          label: '应用状态',
+                          isSelected: false
+                        },
+                        {
+                          label: '通知中心',
+                          isSelected: false
+                        },
+                        {
+                          label: '系统消息',
+                          isSelected: false
+                        },
+                        {
+                          label: '测试管理',
+                          isSelected: false,
+                          children: [
+                            {
+                              label: '开放测试',
+                              isSelected: false
+                            },
+                            {
+                              label: '封闭测试',
+                              isSelected: false
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      label: '统计信息',
+                      icon: '📊',
+                      isSelected: false,
+                      children: [
+                        {
+                          label: '用户增长',
+                          isSelected: false
+                        },
+                        {
+                          label: '活跃度分析',
+                          isSelected: false
+                        },
+                        {
+                          label: '留存率统计',
+                          isSelected: false
+                        },
+                        {
+                          label: '性能监控',
+                          isSelected: false,
+                          children: [
+                            {
+                              label: '开放测试',
+                              isSelected: false
+                            },
+                            {
+                              label: '封闭测试',
+                              isSelected: false
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      label: '发布概览',
+                      icon: '⏱',
+                      isSelected: false
+                    },
+                    {
+                      label: '测试和发布',
+                      icon: '🚀',
+                      isSelected: true,
+                      children: [
+                        {
+                          label: '最新版本和 app bundle',
+                          isSelected: false
+                        },
+                        {
+                          label: '正式版',
+                          isSelected: false
+                        },
+                        {
+                          label: '测试',
+                          isSelected: true,
+                          children: [
+                            {
+                              label: '开发测试',
+                              isSelected: false
+                            },
+                            {
+                              label: '封闭测试',
+                              isSelected: false
+                            }
+                          ]
+                        },
+                        {
+                          label: '预注册',
+                          isSelected: false
+                        },
+                        {
+                          label: '应用完整性',
+                          isSelected: false
+                        },
+                        {
+                          label: '高级设置',
+                          isSelected: false
+                        }
+                      ]
+                    },
+                    {
+                      label: '监控和改进',
+                      icon: '🔍',
+                      isSelected: false
+                    },
+                    {
+                      label: '扩大用户群',
+                      icon: '👥',
+                      isSelected: false
+                    },
+                    {
+                      label: '借助 Play 变现',
+                      icon: '💰',
+                      isSelected: false
+                    }
+                  ]}
+                  onSelect={(selected) => console.log('Selected menu item:', selected)}
+                />
+              </div>
+            </Card>
           </div>
         </section>
 
