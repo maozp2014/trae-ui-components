@@ -1,11 +1,89 @@
 import React, { useState } from 'react';
 import './App.css';
-import { Button, Card, Input } from './components';
+import { Button, Card, Input, Table } from './components';
 
 function App() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  // 表格示例数据 - 版本管理表格数据
+  const versionData = [
+    {
+      id: '48369',
+      version: '4.8.3.9',
+      fileType: 'App bundle',
+      uploadDate: '2025年8月20日 09:26',
+      downloads: '9905',
+      status: '有效',
+    },
+    {
+      id: '48269',
+      version: '4.8.2.9',
+      fileType: 'App bundle',
+      uploadDate: '2025年8月18日 09:33',
+      downloads: '5100',
+      status: '无效',
+    },
+    {
+      id: '48200',
+      version: '4.8.2.0',
+      fileType: 'App bundle',
+      uploadDate: '2025年8月10日 10:38',
+      downloads: '3898',
+      status: '有效',
+    },
+    {
+      id: '48100',
+      version: '4.8.1.0',
+      fileType: 'App bundle',
+      uploadDate: '2025年8月4日 00:32',
+      downloads: '862',
+      status: '无效',
+    },
+    {
+      id: '48010',
+      version: '4.8.0.1',
+      fileType: 'App bundle',
+      uploadDate: '2025年7月29日 10:29',
+      downloads: '527',
+      status: '无效',
+    },
+  ];
+
+  // 表格列配置
+  const columns = [
+    {
+      title: '版本号',
+      dataIndex: 'version',
+      key: 'version',
+    },
+    {
+      title: '文件类型',
+      dataIndex: 'fileType',
+      key: 'fileType',
+    },
+    {
+      title: '已上传',
+      dataIndex: 'uploadDate',
+      key: 'uploadDate',
+    },
+    {
+      title: '安装人数',
+      dataIndex: 'downloads',
+      key: 'downloads',
+    },
+    {
+      title: '版本状态',
+      dataIndex: 'status',
+      key: 'status',
+    },
+  ];
+
+  const handleRowClick = (row) => {
+    console.log('选择的版本:', row);
+    alert(`选择了版本: ${row.version}`);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -64,6 +142,18 @@ function App() {
                 <Button>立即使用</Button>
               </div>
             </Card>
+          </div>
+          
+          <div style={{ marginTop: '32px' }}>
+            <h3>Table 组件</h3>
+            <p>版本管理表格示例，支持排序、筛选和行操作</p>
+            <div style={{ marginTop: '16px' }}>
+              <Table
+                data={versionData}
+                columns={columns}
+                onRowClick={handleRowClick}
+              />
+            </div>
           </div>
         </section>
 

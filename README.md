@@ -1,12 +1,34 @@
-# React + Vite
+# Trae UI Components
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+基于React的通用UI组件库，提供简洁、美观、易用的界面组件。
 
-Currently, two official plugins are available:
+## 最近功能更新
+- 新增 Table 组件：实现了版本管理表格功能，支持状态显示、行操作和自定义主题
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 组件列表
+- Button - 按钮组件
+- Card - 卡片组件
+- Input - 输入框组件
+- Table - 表格组件（版本管理表格）
 
-## Expanding the ESLint configuration
+## 使用方法
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 安装依赖
+```bash
+npm install --legacy-peer-deps
+```
+
+### 开发模式
+```bash
+npm run dev
+```
+
+### 构建项目
+```bash
+npm run build
+```
+
+### Storybook预览
+```bash
+npm run storybook
+```
