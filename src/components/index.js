@@ -10,3 +10,4 @@ export { default as StockItemCard } from './StockItemCard/StockItemCard';
 export { default as MarketIndexTicker } from './MarketIndexTicker/MarketIndexTicker';
 export { default as TradeIdeaCard } from './TradeIdeaCard/TradeIdeaCard';
 export { default as StockDetailPanel } from './StockDetailPanel/StockDetailPanel';
+export { default as Watchlist } from './Watchlist/Watchlist';

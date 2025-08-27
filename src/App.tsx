@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { SectionHeader, StockItemCard, MarketIndexTicker, TradeIdeaCard, StockDetailPanel } from './components';
+import { SectionHeader, StockItemCard, MarketIndexTicker, TradeIdeaCard, StockDetailPanel, Watchlist } from './components';
 
 // 主容器样式
 const AppContainer = styled.div`
@@ -179,64 +179,6 @@ const TradeIdeasGrid = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 16px;
   margin-bottom: 16px;
-`;
-
-// 观察列表
-const WatchlistContainer = styled.div`
-  background-color: var(--color-background-secondary);
-  border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 20px;
-  transition: background-color 0.3s ease;
-`;
-
-const WatchlistHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-  font-size: 14px;
-  font-weight: bold;
-`;
-
-const WatchlistItems = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-`;
-
-const WatchlistItem = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6px 0;
-  font-size: 13px;
-  border-bottom: 1px solid var(--color-border);
-
-  &:last-child {
-    border-bottom: none;
-  }
-`;
-
-const StockSymbol = styled.div`
-  font-weight: 500;
-`;
-
-const StockName = styled.div`
-  font-size: 11px;
-  color: var(--color-text-muted);
-  margin-top: 2px;
-`;
-
-const StockPrice = styled.div`
-  font-weight: 500;
-  text-align: right;
-`;
-
-const StockChange = styled.div`
-  font-size: 11px;
-  text-align: right;
-  margin-top: 2px;
 `;
 
 // 股票详情容器
@@ -572,28 +514,7 @@ function App() {
         </CenterContent>
 
         <RightSidebar>
-          <WatchlistContainer>
-            <WatchlistHeader>
-              <div>Watchlist</div>
-              <div style={{ color: 'var(--color-text-muted)', fontSize: '12px' }}>...</div>
-            </WatchlistHeader>
-            <WatchlistItems>
-              {watchlistStocks.map((stock) => (
-                <WatchlistItem key={stock.symbol}>
-                  <div>
-                    <StockSymbol>{stock.symbol}</StockSymbol>
-                    <StockName>{stock.name}</StockName>
-                  </div>
-                  <div>
-                    <StockPrice>{stock.price.toFixed(2)}</StockPrice>
-                    <StockChange style={{ color: stock.changePercent >= 0 ? 'var(--color-positive)' : 'var(--color-negative)' }}>
-                        {stock.changePercent >= 0 ? '+' : ''}{stock.change.toFixed(2)} ({stock.changePercent.toFixed(2)}%)
-                      </StockChange>
-                    </div>
-                  </WatchlistItem>
-              ))}
-            </WatchlistItems>
-          </WatchlistContainer>
+          <Watchlist stocks={watchlistStocks} />
 
           <StockDetailContainer>
             <StockDetailHeader>
