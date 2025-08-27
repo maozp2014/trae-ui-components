@@ -148,7 +148,7 @@ const SectionTitle = styled.h2`
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 16px;
-  color: #E6E6E6;
+  color: var(--color-text-primary);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -183,10 +183,11 @@ const TradeIdeasGrid = styled.div`
 
 // 观察列表
 const WatchlistContainer = styled.div`
-  background-color: #141414;
+  background-color: var(--color-background-secondary);
   border-radius: 8px;
   padding: 16px;
   margin-bottom: 20px;
+  transition: background-color 0.3s ease;
 `;
 
 const WatchlistHeader = styled.div`
@@ -210,7 +211,7 @@ const WatchlistItem = styled.div`
   align-items: center;
   padding: 6px 0;
   font-size: 13px;
-  border-bottom: 1px solid #222;
+  border-bottom: 1px solid var(--color-border);
 
   &:last-child {
     border-bottom: none;
@@ -223,7 +224,7 @@ const StockSymbol = styled.div`
 
 const StockName = styled.div`
   font-size: 11px;
-  color: #999;
+  color: var(--color-text-muted);
   margin-top: 2px;
 `;
 
@@ -240,9 +241,10 @@ const StockChange = styled.div`
 
 // 股票详情容器
 const StockDetailContainer = styled.div`
-  background-color: #141414;
+  background-color: var(--color-background-secondary);
   border-radius: 8px;
   padding: 16px;
+  transition: background-color 0.3s ease;
 `;
 
 const StockDetailHeader = styled.div`
@@ -264,7 +266,7 @@ const StockSymbolName = styled.div`
 
 const StockFullName = styled.div`
   font-size: 11px;
-  color: #999;
+  color: var(--color-text-muted);
   margin-top: 2px;
 `;
 
@@ -275,7 +277,7 @@ const StockDetailPrice = styled.div`
 
 const StockDetailChange = styled.div`
   font-size: 14px;
-  color: #4CAF50;
+  color: var(--color-positive);
   margin-top: 2px;
 `;
 
@@ -522,7 +524,7 @@ function App() {
           {isDarkTheme ? '🌞' : '🌙'} {isDarkTheme ? '浅色主题' : '深色主题'}
         </ThemeToggle>
         
-        <div style={{ color: '#999', fontSize: '14px' }}>💰 You have a Discount</div>
+        <div style={{ color: 'var(--color-text-muted)', fontSize: '14px' }}>💰 You have a Discount</div>
       </Navbar>
 
       <MainContent>
@@ -533,16 +535,16 @@ function App() {
         <CenterContent>
           <div>
             <SectionTitle>
-              US stocks <span style={{ fontSize: '12px', color: '#999', fontWeight: 'normal' }}>→</span>
+              US stocks <span style={{ fontSize: '12px', color: 'var(--color-text-muted)', fontWeight: 'normal' }}>→</span>
             </SectionTitle>
-            <div style={{ marginBottom: '20px', display: 'flex', gap: '12px', fontSize: '14px', color: '#999' }}>
-              <span style={{ color: '#E6E6E6' }}>Market summary</span>
-              <span>Stocks</span>
-              <span>Crypto</span>
-              <span>Futures</span>
-              <span>Forex</span>
-              <span>Economy</span>
-              <span>Brokers</span>
+            <div style={{ marginBottom: '20px', display: 'flex', gap: '12px', fontSize: '14px' }}>
+              <span style={{ color: 'var(--color-text-primary)' }}>Market summary</span>
+              <span style={{ color: 'var(--color-text-muted)' }}>Stocks</span>
+              <span style={{ color: 'var(--color-text-muted)' }}>Crypto</span>
+              <span style={{ color: 'var(--color-text-muted)' }}>Futures</span>
+              <span style={{ color: 'var(--color-text-muted)' }}>Forex</span>
+              <span style={{ color: 'var(--color-text-muted)' }}>Economy</span>
+              <span style={{ color: 'var(--color-text-muted)' }}>Brokers</span>
             </div>
           </div>
 
