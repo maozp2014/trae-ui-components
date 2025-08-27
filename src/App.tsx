@@ -573,7 +573,7 @@ function App() {
           <WatchlistContainer>
             <WatchlistHeader>
               <div>Watchlist</div>
-              <div style={{ color: '#999', fontSize: '12px' }}>...</div>
+              <div style={{ color: 'var(--color-text-muted)', fontSize: '12px' }}>...</div>
             </WatchlistHeader>
             <WatchlistItems>
               {watchlistStocks.map((stock) => (
@@ -584,7 +584,7 @@ function App() {
                   </div>
                   <div>
                     <StockPrice>{stock.price.toFixed(2)}</StockPrice>
-                    <StockChange style={{ color: stock.changePercent >= 0 ? '#4CAF50' : '#F44336' }}>
+                    <StockChange style={{ color: stock.changePercent >= 0 ? 'var(--color-positive)' : 'var(--color-negative)' }}>
                         {stock.changePercent >= 0 ? '+' : ''}{stock.change.toFixed(2)} ({stock.changePercent.toFixed(2)}%)
                       </StockChange>
                     </div>
@@ -599,17 +599,17 @@ function App() {
                 <StockSymbolName>AAPL</StockSymbolName>
                 <StockFullName>Apple Inc. | NASDAQ</StockFullName>
               </StockInfo>
-              <div style={{ display: 'flex', gap: '8px', fontSize: '12px', color: '#999' }}>
+              <div style={{ display: 'flex', gap: '8px', fontSize: '12px', color: 'var(--color-text-muted)' }}>
                 <span>📊</span>
                 <span>📃</span>
                 <span>⚙️</span>
               </div>
             </StockDetailHeader>
             <StockDetailPrice>{appleStockDetails.price.toFixed(2)}</StockDetailPrice>
-            <StockDetailChange style={{ color: appleStockDetails.changePercent >= 0 ? '#4CAF50' : '#F44336' }}>
+            <StockDetailChange style={{ color: appleStockDetails.changePercent >= 0 ? 'var(--color-positive)' : 'var(--color-negative)' }}>
               {appleStockDetails.changePercent >= 0 ? '+' : ''}{appleStockDetails.change.toFixed(2)} ({appleStockDetails.changePercent.toFixed(2)}%)
             </StockDetailChange>
-            <div style={{ marginTop: '12px', fontSize: '12px', color: '#999' }}>
+            <div style={{ marginTop: '12px', fontSize: '12px', color: 'var(--color-text-muted)' }}>
               Last update: 12:57:00
             </div>
             <StockDetailPanel {...appleStockDetails} />
