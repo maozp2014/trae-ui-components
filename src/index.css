@@ -21,6 +21,12 @@
   --color-danger: #ff4d4f;
   --color-warning: #ffc107;
   --color-info: #17a2b8;
+  /* Financial Colors */
+  --color-positive: #00B06B;
+  --color-negative: #FF445B;
+  --color-background-primary: #FFFFFF;
+  --color-background-secondary: #F8F9FA;
+  --color-shadow: rgba(0, 0, 0, 0.1);
   
   /* Gray Scale */
   --color-gray-50: #f8f9fa;
