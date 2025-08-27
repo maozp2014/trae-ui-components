@@ -15,7 +15,7 @@ const CardContainer = styled.div`
   border-radius: var(--radius-md);
   padding: var(--spacing-l);
   margin-bottom: var(--spacing-s);
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--shadow-md);
   cursor: pointer;
   transition: all var(--transition-normal);
   display: flex;

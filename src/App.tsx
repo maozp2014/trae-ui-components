@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { SectionHeader, StockItemCard, MarketIndexTicker, TradeIdeaCard, StockDetailPanel } from './components';
 
 // 主容器样式
 const AppContainer = styled.div`
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background-color: #0F0F0F;
-  color: #E6E6E6;
+  background-color: var(--color-background-primary);
+  color: var(--color-text-primary);
   min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
 `;
 
 // 顶部导航栏
 const Navbar = styled.nav`
-  background-color: #141414;
-  border-bottom: 1px solid #333;
+  background-color: var(--color-background-secondary);
+  border-bottom: 1px solid var(--color-border);
   padding: 8px 16px;
   display: flex;
   align-items: center;
@@ -21,6 +22,7 @@ const Navbar = styled.nav`
   position: sticky;
   top: 0;
   z-index: 100;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 `;
 
 const Logo = styled.div`
@@ -39,17 +41,17 @@ const SearchBar = styled.div`
 `;
 
 const SearchInput = styled.input`
-  background-color: #1E1E1E;
-  border: 1px solid #333;
+  background-color: var(--color-background-tertiary);
+  border: 1px solid var(--color-border);
   border-radius: 4px;
   padding: 6px 12px 6px 30px;
-  color: #E6E6E6;
+  color: var(--color-text-primary);
   font-size: 14px;
   width: 200px;
 
   &:focus {
     outline: none;
-    border-color: #2962FF;
+    border-color: var(--color-primary);
   }
 `;
 
@@ -58,8 +60,28 @@ const SearchIcon = styled.div`
   left: 8px;
   top: 50%;
   transform: translateY(-50%);
-  color: #888;
+  color: var(--color-text-muted);
   font-size: 14px;
+`;
+
+// 主题切换按钮
+const ThemeToggle = styled.button`
+  background-color: var(--color-background-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 6px 12px;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: var(--color-background-secondary);
+    border-color: var(--color-border-hover);
+  }
 `;
 
 const NavLinks = styled.div`
@@ -257,7 +279,102 @@ const StockDetailChange = styled.div`
   margin-top: 2px;
 `;
 
+// 深色主题变量
+const darkTheme = {
+  '--color-primary': '#2962FF',
+  '--color-primary-hover': '#1E88E5',
+  '--color-primary-active': '#1976D2',
+  '--color-secondary': '#757575',
+  '--color-secondary-hover': '#9E9E9E',
+  '--color-success': '#4CAF50',
+  '--color-danger': '#F44336',
+  '--color-warning': '#FFC107',
+  '--color-info': '#2196F3',
+  '--color-positive': '#4CAF50',
+  '--color-negative': '#F44336',
+  '--color-background-primary': '#0F0F0F',
+  '--color-background-secondary': '#141414',
+  '--color-background-tertiary': '#1E1E1E',
+  '--color-shadow': 'rgba(0, 0, 0, 0.3)',
+  '--color-gray-50': '#121212',
+  '--color-gray-100': '#1A1A1A',
+  '--color-gray-200': '#2D2D2D',
+  '--color-gray-300': '#3D3D3D',
+  '--color-gray-400': '#525252',
+  '--color-gray-500': '#737373',
+  '--color-gray-600': '#A0A0A0',
+  '--color-gray-700': '#C7C7C7',
+  '--color-gray-800': '#E0E0E0',
+  '--color-gray-900': '#F5F5F5',
+  '--color-background': '#0F0F0F',
+  '--color-text-primary': '#E6E6E6',
+  '--color-text-secondary': '#B0B0B0',
+  '--color-text-muted': '#8E8E8E',
+  '--color-border': '#333333',
+  '--color-border-hover': '#444444',
+  '--shadow-sm': '0 1px 2px 0 rgba(0, 0, 0, 0.1)',
+  '--shadow-md': '0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.12)',
+  '--shadow-lg': '0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2)'
+};
+
+// 浅色主题变量
+const lightTheme = {
+  '--color-primary': '#2962FF',
+  '--color-primary-hover': '#1E88E5',
+  '--color-primary-active': '#1976D2',
+  '--color-secondary': '#6c757d',
+  '--color-secondary-hover': '#5a6268',
+  '--color-success': '#4CAF50',
+  '--color-danger': '#F44336',
+  '--color-warning': '#FFC107',
+  '--color-info': '#2196F3',
+  '--color-positive': '#4CAF50',
+  '--color-negative': '#F44336',
+  '--color-background-primary': '#FFFFFF',
+  '--color-background-secondary': '#F8F9FA',
+  '--color-background-tertiary': '#E9ECEF',
+  '--color-shadow': 'rgba(0, 0, 0, 0.1)',
+  '--color-gray-50': '#f8f9fa',
+  '--color-gray-100': '#f1f3f5',
+  '--color-gray-200': '#e9ecef',
+  '--color-gray-300': '#dee2e6',
+  '--color-gray-400': '#ced4da',
+  '--color-gray-500': '#adb5bd',
+  '--color-gray-600': '#6c757d',
+  '--color-gray-700': '#495057',
+  '--color-gray-800': '#343a40',
+  '--color-gray-900': '#212529',
+  '--color-background': '#ffffff',
+  '--color-text-primary': '#1a1a1a',
+  '--color-text-secondary': '#666666',
+  '--color-text-muted': '#999999',
+  '--color-border': '#eaeaea',
+  '--color-border-hover': '#d4d4d4',
+  '--shadow-sm': '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+  '--shadow-md': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+  '--shadow-lg': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)' 
+};
+
 function App() {
+  // 主题状态管理
+  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(true);
+
+  // 应用主题
+  useEffect(() => {
+    const root = document.documentElement;
+    const theme = isDarkTheme ? darkTheme : lightTheme;
+    
+    // 应用所有CSS变量
+    Object.entries(theme).forEach(([key, value]) => {
+      root.style.setProperty(key, value);
+    });
+  }, [isDarkTheme]);
+
+  // 切换主题
+  const toggleTheme = () => {
+    setIsDarkTheme(!isDarkTheme);
+  };
+
   // Mock data for market indices from the screenshot
   const indices = [
     {
@@ -401,6 +518,10 @@ function App() {
           <SearchInput placeholder="Search (Ctrl+K)" />
         </SearchBar>
         
+        <ThemeToggle onClick={toggleTheme}>
+          {isDarkTheme ? '🌞' : '🌙'} {isDarkTheme ? '浅色主题' : '深色主题'}
+        </ThemeToggle>
+        
         <div style={{ color: '#999', fontSize: '14px' }}>💰 You have a Discount</div>
       </Navbar>
 
@@ -463,8 +584,8 @@ function App() {
                   </div>
                   <div>
                     <StockPrice>{stock.price.toFixed(2)}</StockPrice>
-                    <StockChange style={{ color: stock.changePercent >= 0 ? '#F44336' : '#4CAF50' }}>
-                        +{stock.change.toFixed(2)} ({stock.changePercent.toFixed(2)}%)
+                    <StockChange style={{ color: stock.changePercent >= 0 ? '#4CAF50' : '#F44336' }}>
+                        {stock.changePercent >= 0 ? '+' : ''}{stock.change.toFixed(2)} ({stock.changePercent.toFixed(2)}%)
                       </StockChange>
                     </div>
                   </WatchlistItem>
@@ -485,8 +606,8 @@ function App() {
               </div>
             </StockDetailHeader>
             <StockDetailPrice>{appleStockDetails.price.toFixed(2)}</StockDetailPrice>
-            <StockDetailChange>
-              +{appleStockDetails.change.toFixed(2)} ({appleStockDetails.changePercent.toFixed(2)}%)
+            <StockDetailChange style={{ color: appleStockDetails.changePercent >= 0 ? '#4CAF50' : '#F44336' }}>
+              {appleStockDetails.changePercent >= 0 ? '+' : ''}{appleStockDetails.change.toFixed(2)} ({appleStockDetails.changePercent.toFixed(2)}%)
             </StockDetailChange>
             <div style={{ marginTop: '12px', fontSize: '12px', color: '#999' }}>
               Last update: 12:57:00
