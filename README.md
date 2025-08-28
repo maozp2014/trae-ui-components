@@ -1,4 +1,5 @@
 # Trae UI Components
+本项目是用ai agent开发的实验性项目，仅供学习交流使用。
 
 # React 金融组件库
 
