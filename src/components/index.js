@@ -11,3 +11,4 @@ export { default as MarketIndexTicker } from './MarketIndexTicker/MarketIndexTic
 export { default as TradeIdeaCard } from './TradeIdeaCard/TradeIdeaCard';
 export { default as StockDetailPanel } from './StockDetailPanel/StockDetailPanel';
 export { default as Watchlist } from './Watchlist/Watchlist';
+export { default as TVWatchlist } from './TVWatchlist/TVWatchlist';

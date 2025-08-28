@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { SectionHeader, StockItemCard, MarketIndexTicker, TradeIdeaCard, StockDetailPanel, Watchlist } from './components';
+import { SectionHeader, StockItemCard, MarketIndexTicker, TradeIdeaCard, StockDetailPanel, Watchlist, TVWatchlist } from './components';
 
 // 主容器样式
 const AppContainer = styled.div`
@@ -319,6 +319,70 @@ function App() {
     setIsDarkTheme(!isDarkTheme);
   };
 
+  // TVWatchlist组件的模拟数据
+  const mockWatchlistData = {
+    id: 'main-watchlist',
+    name: '我的美股观察列表',
+    lastUpdated: new Date().toISOString(),
+    stocks: [
+      {
+        symbol: 'AAPL',
+        name: 'Apple Inc.',
+        price: 189.45,
+        change: 2.34,
+        changePercent: 1.25,
+        volume: 56789000,
+        marketCap: 2987000000000,
+        peRatio: 32.5,
+        sector: 'Technology'
+      },
+      {
+        symbol: 'MSFT',
+        name: 'Microsoft Corporation',
+        price: 401.23,
+        change: -5.67,
+        changePercent: -1.39,
+        volume: 24560000,
+        marketCap: 3210000000000,
+        peRatio: 34.2,
+        sector: 'Technology'
+      },
+      {
+        symbol: 'GOOGL',
+        name: 'Alphabet Inc.',
+        price: 137.45,
+        change: 1.12,
+        changePercent: 0.82,
+        volume: 18900000,
+        marketCap: 1890000000000,
+        peRatio: 28.3,
+        sector: 'Technology'
+      },
+      {
+        symbol: 'AMZN',
+        name: 'Amazon.com Inc.',
+        price: 178.65,
+        change: 3.45,
+        changePercent: 1.97,
+        volume: 32100000,
+        marketCap: 1820000000000,
+        peRatio: 43.7,
+        sector: 'Consumer Cyclical'
+      },
+      {
+        symbol: 'TSLA',
+        name: 'Tesla Inc.',
+        price: 175.89,
+        change: -8.76,
+        changePercent: -4.76,
+        volume: 123450000,
+        marketCap: 552000000000,
+        peRatio: 68.4,
+        sector: 'Automotive'
+      },
+    ]
+  };
+
   // Mock data for market indices from the screenshot
   const indices = [
     {
@@ -515,6 +579,7 @@ function App() {
 
         <RightSidebar>
           <Watchlist stocks={watchlistStocks} />
+          <TVWatchlist watchlist={mockWatchlistData} />
 
           <StockDetailContainer>
             <StockDetailHeader>
